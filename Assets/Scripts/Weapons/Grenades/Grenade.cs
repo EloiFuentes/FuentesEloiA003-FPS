@@ -114,7 +114,7 @@ public class Grenade : MonoBehaviour
         }
 
         if (explosionEffect != null)
-            Destroy(Instantiate(explosionEffect, center, Quaternion.identity), explosionEffectLifetime);
+            EffectPool.Spawn(explosionEffect, center, Quaternion.identity, explosionEffectLifetime);
         if (explosionSound != null)
             AudioSource.PlayClipAtPoint(explosionSound, center, explosionVolume);
 

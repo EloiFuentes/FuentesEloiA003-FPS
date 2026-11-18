@@ -16,8 +16,8 @@ MonoBehaviour:
   displayName: DemoWeapon001
   slot: 0
   viewModelPrefab: {fileID: 2425481642265952882, guid: 2fcddebfa3269ed4b99c7337eeb0b918, type: 3}
-  pickupPrefab: {fileID: 0}
-  fireMode: 0
+  pickupPrefab: {fileID: 4488672323907209722, guid: 9decf7d56b2152f419743899680c3b05, type: 3}
+  fireMode: 1
   fireRate: 600
   burstCount: 3
   burstCooldown: 0.25
@@ -65,7 +65,7 @@ MonoBehaviour:
   autoReloadWhenEmpty: 1
   fireCancelsReload: 1
   syncTimingsWithAnimator: 1
-  equipTime: 0.4
+  equipTime: 1.0333347
   holsterTime: 0.5666666
   reloadTime: 3.6333334
   reloadEmptyTime: 3.6333334

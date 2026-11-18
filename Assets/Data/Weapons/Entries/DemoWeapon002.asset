@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb6b5a83d01fdd419219e6b5264a719, type: 3}
+  m_Name: DemoWeapon002
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  id: demo_weapon_002
+  displayName: DemoWeapon003
+  slot: 1
+  viewModelPrefab: {fileID: 2425481642265952882, guid: 2fcddebfa3269ed4b99c7337eeb0b918, type: 3}
+  pickupPrefab: {fileID: 4488672323907209722, guid: 9decf7d56b2152f419743899680c3b05, type: 3}
+  fireMode: 1
+  fireRate: 600
+  burstCount: 3
+  burstCooldown: 0.25
+  triggerBufferTime: 0.1
+  canFireWhileSprinting: 1
+  damage: 25
+  range: 200
+  pelletsPerShot: 1
+  damageFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  impactForce: 5
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hipSpread: 1.5
+  aimSpread: 0.1
+  movingSpreadMultiplier: 1.5
+  airborneSpreadMultiplier: 2.5
+  magazineSize: 30
+  maxReserveAmmo: 180
+  startingReserveAmmo: 90
+  infiniteReserveAmmo: 0
+  autoReloadWhenEmpty: 1
+  fireCancelsReload: 1
+  syncTimingsWithAnimator: 1
+  equipTime: 1.0333347
+  holsterTime: 0.5666666
+  reloadTime: 3.6333334
+  reloadEmptyTime: 3.6333334
+  fireAnimationLength: 0.80000067
+  grenadeThrowTime: 0.8
+  grenadeReleaseTime: 0.35
+  aimFov: 50
+  aimSpeed: 10
+  aimSwayMultiplier: 0.3
+  aimBobMultiplier: 0.25
+  aimMoveSpeedMultiplier: 0.65
+  cameraKickPitch: 25
+  cameraKickYaw: 8
+  cameraKickRoll: 6
+  viewRecoilPitch: 0.25
+  viewRecoilYaw: 0.08
+  aimRecoilMultiplier: 0.6
+  weaponKickBack: 0.02
+  weaponKickPitch: 1.5
+  swayMultiplier: 1
+  fireSounds: []
+  fireVolume: 1
+  firePitchVariation: 0.05
+  dryFireSound: {fileID: 0}
+  equipSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  muzzleFlashLifetime: 1
+  impactEffectPrefab: {fileID: 0}
+  impactEffectLifetime: 10
+  locomotionCrossFade: 0.15
+  actionCrossFade: 0.05

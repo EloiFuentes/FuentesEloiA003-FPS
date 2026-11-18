@@ -13,7 +13,7 @@ public static class WeaponAnimStates
     public const string AimWalk = "AimWalk";
 
     // Actions (one-shot)
-    public const string Equip = "Equip";
+    public const string Equip = "Draw";
     public const string Holster = "Holster";
     public const string Fire = "Fire";
     public const string FireLast = "FireLast";       // last round in the magazine (e.g. slide lock)

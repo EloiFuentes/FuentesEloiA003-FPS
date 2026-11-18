@@ -31,6 +31,9 @@ public class WeaponPickup : MonoBehaviour, IInteractable
 
     private WeaponManager cachedManager;
 
+    /// <summary>Sets which weapon this pickup gives (used when a weapon is dropped).</summary>
+    public void SetWeapon(WeaponData data) => weapon = data;
+
     public void SetAmmo(int magazine, int reserve)
     {
         magazineAmmo = magazine;

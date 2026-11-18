@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private float jumpHeight = 1.5f;
-    [SerializeField] private bool allowDoubleJump = true;
+    [SerializeField] private bool allowDoubleJump = false;
     [SerializeField] private float doubleJumpHeight = 1.3f;
     [Tooltip("Time after walking off a ledge during which you can still jump.")]
     [SerializeField] private float coyoteTime = 0.12f;

@@ -33,6 +33,10 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
     [SerializeField] private GrenadeData grenadeType;
     [SerializeField] private int startingGrenades;
 
+    [Header("Ledge Grab")]
+    [Tooltip("Holster the weapon while mantling / hanging on a ledge, and draw it again afterwards.")]
+    [SerializeField] private bool lowerWeaponOnLedgeGrab = true;
+
     [Header("Switching")]
     [Tooltip("Minimum time between scroll-wheel switches.")]
     [SerializeField] private float scrollSwitchCooldown = 0.2f;
@@ -56,6 +60,8 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
     public GrenadeData GrenadeType => grenadeType;
     public WeaponDatabase Database => database;
     public bool WeaponsEnabled => weaponsEnabled;
+    /// <summary>The weapon is temporarily put away (e.g. during a ledge grab).</summary>
+    public bool WeaponLowered => weaponLowered;
 
     // ---- Services used by Weapon ----
     public PlayerController Player { get; private set; }
@@ -69,6 +75,8 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
 
     private readonly Weapon[] slots = new Weapon[2];
     private PlayerStateMachine locomotion;
+    private LedgeGrab ledgeGrab;
+    private bool weaponLowered;
     private FirstPersonCameraEffects effects;
     private Camera cam;
 
@@ -83,7 +91,30 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
         Player = GetComponent<PlayerController>();
         Inputs = GetComponent<GameInputs>();
         locomotion = GetComponent<PlayerStateMachine>();
+        ledgeGrab = GetComponent<LedgeGrab>();
     }
+
+    private void OnEnable()
+    {
+        if (ledgeGrab == null) return;
+        ledgeGrab.MantleStarted += OnMantleStarted;
+        ledgeGrab.LedgeGrabbed += OnLedgeGrabbed;
+        ledgeGrab.MantleFinished += OnLedgeEnded;
+        ledgeGrab.LedgeReleased += OnLedgeEnded;
+    }
+
+    private void OnDisable()
+    {
+        if (ledgeGrab == null) return;
+        ledgeGrab.MantleStarted -= OnMantleStarted;
+        ledgeGrab.LedgeGrabbed -= OnLedgeGrabbed;
+        ledgeGrab.MantleFinished -= OnLedgeEnded;
+        ledgeGrab.LedgeReleased -= OnLedgeEnded;
+    }
+
+    private void OnMantleStarted(float height) { if (lowerWeaponOnLedgeGrab) SetWeaponLowered(true); }
+    private void OnLedgeGrabbed() { if (lowerWeaponOnLedgeGrab) SetWeaponLowered(true); }
+    private void OnLedgeEnded() { if (lowerWeaponOnLedgeGrab) SetWeaponLowered(false); }
 
     private void Start()
     {
@@ -222,6 +253,10 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
         weapon.AmmoChanged += w => AmmoChanged?.Invoke(w);
         slots[(int)data.slot] = weapon;
 
+        // Create effect copies now so the first shots don't hitch.
+        EffectPool.Prewarm(data.muzzleFlashPrefab, 2);
+        EffectPool.Prewarm(data.impactEffectPrefab, 8);
+
         if (equip || wasActive || ActiveWeapon == null) EquipSlot(data.slot);
         return true;
     }
@@ -232,9 +267,9 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
         Weapon target = slots[(int)slot];
         if (target == null) return;
 
-        if (!weaponsEnabled)
+        if (!weaponsEnabled || weaponLowered)
         {
-            // Remember the choice for when weapons are enabled again.
+            // Remember the choice for when weapons are enabled / raised again.
             ActiveWeapon?.HideImmediate();
             SetActive(target);
             return;
@@ -286,6 +321,35 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
         weaponsEnabled = value;
 
         if (!value)
+        {
+            pendingSlot = null;
+            ActiveWeapon?.Holster(null);
+        }
+        else if (weaponLowered)
+        {
+            // Drawn when the weapon is raised again.
+        }
+        else if (ActiveWeapon != null)
+        {
+            ActiveWeapon.Equip();
+        }
+        else
+        {
+            EquipFirstAvailable();
+        }
+    }
+
+    /// <summary>
+    /// Temporarily puts the weapon away (true) and draws it again (false), e.g. for a ledge grab.
+    /// Independent of SetWeaponsEnabled.
+    /// </summary>
+    public void SetWeaponLowered(bool value)
+    {
+        if (weaponLowered == value) return;
+        weaponLowered = value;
+        if (!weaponsEnabled) return;
+
+        if (value)
         {
             pendingSlot = null;
             ActiveWeapon?.Holster(null);
@@ -355,15 +419,14 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
     {
         GameObject prefab = weapon.Data.muzzleFlashPrefab;
         if (prefab == null) return;
-        GameObject flash = Instantiate(prefab, weapon.ViewModel.Muzzle, false);
-        Destroy(flash, weapon.Data.muzzleFlashLifetime);
+        EffectPool.Spawn(prefab, weapon.ViewModel.Muzzle, weapon.Data.muzzleFlashLifetime);
     }
 
     internal void SpawnImpact(WeaponData data, RaycastHit hit)
     {
         if (data.impactEffectPrefab == null) return;
-        GameObject impact = Instantiate(data.impactEffectPrefab, hit.point + hit.normal * 0.005f, Quaternion.LookRotation(hit.normal));
-        Destroy(impact, data.impactEffectLifetime);
+        EffectPool.Spawn(data.impactEffectPrefab, hit.point + hit.normal * 0.005f, Quaternion.LookRotation(hit.normal),
+                         data.impactEffectLifetime);
     }
 
     internal void PlaySound(AudioClip clip, float volume, float pitchVariation)
@@ -474,6 +537,7 @@ public class WeaponManager : MonoBehaviour, ICameraAnimationSource
         Transform view = ViewTransform;
         Vector3 position = SafeSpawnPosition(view.position, view.position + view.forward * 0.7f - Vector3.up * 0.2f);
         WeaponPickup pickup = Instantiate(prefab, position, Quaternion.LookRotation(Vector3.ProjectOnPlane(view.forward, Vector3.up).normalized + Vector3.up * 0.01f));
+        pickup.SetWeapon(weapon.Data);
         pickup.SetAmmo(weapon.Magazine, weapon.Reserve);
         pickup.IgnorePlayer(Player.Capsule);
 
