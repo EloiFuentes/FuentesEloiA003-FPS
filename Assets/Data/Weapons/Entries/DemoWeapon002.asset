@@ -15,9 +15,9 @@ MonoBehaviour:
   id: demo_weapon_002
   displayName: DemoWeapon003
   slot: 1
-  viewModelPrefab: {fileID: 2425481642265952882, guid: 2fcddebfa3269ed4b99c7337eeb0b918, type: 3}
-  pickupPrefab: {fileID: 4488672323907209722, guid: 9decf7d56b2152f419743899680c3b05, type: 3}
-  fireMode: 1
+  viewModelPrefab: {fileID: 5060067913293007821, guid: a96cd197599cdec4f80686e17722c6ef, type: 3}
+  pickupPrefab: {fileID: 4488672323907209722, guid: b6143e30f5f42004e847774b02c1e3c0, type: 3}
+  fireMode: 0
   fireRate: 600
   burstCount: 3
   burstCooldown: 0.25
@@ -65,11 +65,11 @@ MonoBehaviour:
   autoReloadWhenEmpty: 1
   fireCancelsReload: 1
   syncTimingsWithAnimator: 1
-  equipTime: 1.0333347
-  holsterTime: 0.5666666
-  reloadTime: 3.6333334
-  reloadEmptyTime: 3.6333334
-  fireAnimationLength: 0.80000067
+  equipTime: 0.8333335
+  holsterTime: 0.3666668
+  reloadTime: 3.7333336
+  reloadEmptyTime: 3.7333336
+  fireAnimationLength: 0.33333373
   grenadeThrowTime: 0.8
   grenadeReleaseTime: 0.35
   aimFov: 50
@@ -92,9 +92,9 @@ MonoBehaviour:
   dryFireSound: {fileID: 0}
   equipSound: {fileID: 0}
   reloadSound: {fileID: 0}
-  muzzleFlashPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 5234184263452757216, guid: 6a7f9d903873b9a4187ca283abe7e073, type: 3}
   muzzleFlashLifetime: 1
-  impactEffectPrefab: {fileID: 0}
+  impactEffectPrefab: {fileID: 4928778009325167472, guid: c890a8f7384f0834e9d7d16fc6fcfffb, type: 3}
   impactEffectLifetime: 10
   locomotionCrossFade: 0.15
   actionCrossFade: 0.05

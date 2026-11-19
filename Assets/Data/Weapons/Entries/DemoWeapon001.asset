@@ -92,9 +92,9 @@ MonoBehaviour:
   dryFireSound: {fileID: 0}
   equipSound: {fileID: 0}
   reloadSound: {fileID: 0}
-  muzzleFlashPrefab: {fileID: 0}
-  muzzleFlashLifetime: 1
-  impactEffectPrefab: {fileID: 0}
-  impactEffectLifetime: 10
+  muzzleFlashPrefab: {fileID: 5234184263452757216, guid: 6a7f9d903873b9a4187ca283abe7e073, type: 3}
+  muzzleFlashLifetime: 0.05
+  impactEffectPrefab: {fileID: 4928778009325167472, guid: c890a8f7384f0834e9d7d16fc6fcfffb, type: 3}
+  impactEffectLifetime: 0.5
   locomotionCrossFade: 0.15
   actionCrossFade: 0.05
