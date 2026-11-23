@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemoWeapon001
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   id: demo_weapon_001
-  displayName: DemoWeapon001
+  displayName: fusil de asalto
   slot: 0
   viewModelPrefab: {fileID: 2425481642265952882, guid: 2fcddebfa3269ed4b99c7337eeb0b918, type: 3}
   pickupPrefab: {fileID: 4488672323907209722, guid: 9decf7d56b2152f419743899680c3b05, type: 3}
@@ -86,9 +86,10 @@ MonoBehaviour:
   weaponKickBack: 0.02
   weaponKickPitch: 1.5
   swayMultiplier: 1
-  fireSounds: []
+  fireSounds:
+  - {fileID: 8300000, guid: fa1902f992d0a4c4293de06da785f831, type: 3}
   fireVolume: 1
-  firePitchVariation: 0.05
+  firePitchVariation: 0
   dryFireSound: {fileID: 0}
   equipSound: {fileID: 0}
   reloadSound: {fileID: 0}

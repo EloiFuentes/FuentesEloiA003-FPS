@@ -75,7 +75,7 @@ public sealed partial class Weapon
            .Add(StateId.ThrowingGrenade, new GrenadeState(this));
         fsm.StateChanged += (previous, next) => StateChanged?.Invoke(previous, next);
 
-        viewModel.SoundRequested += clip => owner.PlaySound(clip, 1f, 0.03f);
+        viewModel.SoundRequested += clip => owner.PlaySound(clip, 1f, 0f); // sons de recàrrega sempre iguals
         fsm.ChangeState(StateId.Hidden);
     }
 
