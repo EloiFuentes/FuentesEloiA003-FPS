@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 530528088}
   - component: {fileID: 530528087}
   m_Layer: 5
-  m_Name: Right
+  m_Name: dreta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1757,7 +1757,7 @@ GameObject:
   - component: {fileID: 1280046377}
   - component: {fileID: 1280046376}
   m_Layer: 5
-  m_Name: AmmoPanel
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 1380045174}
   - component: {fileID: 1380045173}
   m_Layer: 5
-  m_Name: Left
+  m_Name: esquerra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
